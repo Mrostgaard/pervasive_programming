@@ -11,26 +11,31 @@ Gateway, Testing etc.
 
 ###### Hardware
 We will be using LoPy as our knowledge and experience is greater here than other choices. LoPy can be used together with MicroPython, which we also have some experience in.
+For energy we will probably use a mobile battery - watchout for minus degrees
 
 ###### Sensors
-We will be using a waterproof temperature sensor, in the end of a 2m long wire.
+We will be using the waterproof temperature sensor which can be found here: https://www.sparkfun.com/products/11050.
 
 ###### Platform
-More research needed, but Amazon IoT or Digital Ocean
+We will be using a server at ITU. Currently we are thinking about centralized solutions such as Amazon IoT or Digital Ocean.
 
 ###### Network
 Wi-Fi would be the easiest, but also most expensive regarding energy consumption.
-LoRa might be a better choice, if the university has an active hub.
+LoRa might be a better choice, if the university has an active hub. More research needed.
 
 ###### Visual Presentation
-Graph diagram
+Graph diagram such as Grafana - ChartJS
 
 ###### Error Handling
 How will we be handling errors - on device and server vice
 
-###### Data
-Why using float, integer etc.?
+###### Storage
+Database such as Influx or MySQL
 
-### Backend packages available
-* DB : Influx, MySQL
-* Vis: Grafana
+###### Data
+float, integer etc?
+
+Lora if low - wifi if large
+Timestamping - goes wrong, really bad, where/how what are the differences.
+batch or single measurement
+Physical security, theft etc.
