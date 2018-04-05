@@ -1,14 +1,20 @@
 import time
+import utime
 from machine import Pin
+import machine
 from onewire import DS18X20
 from onewire import OneWire
 
-#DS18B20 data line connected to pin P10
-ow = OneWire(Pin('P1'))
+adc = machine.ADC()
+ow = OneWire(Pin('P11'))
 temp = DS18X20(ow)
+photores = adc.channel(pin='G1')
 
-while True:
+while(True):
+    print('Light: ' + str(photores()))
+    time.sleep(1)
+    print('Temp: ' + str(temp.read_temp_async()))
+    time.sleep(1)
     temp.start_conversion()
     time.sleep(1)
-    print(temp.read_temp_async())
-    time.sleep(1)
+    print(utime.localtime())
