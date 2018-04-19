@@ -1,20 +1,46 @@
 import time
 import utime
-from machine import Pin
 import machine
-from onewire import DS18X20
-from onewire import OneWire
+from network import WLAN
+import urequests
 
-adc = machine.ADC()
-ow = OneWire(Pin('P11'))
-temp = DS18X20(ow)
-photores = adc.channel(pin='G1')
+#from machine import Pin
+#from onewire import DS18X20
+#from onewire import OneWire
+
+## Setup the temperature sensor
+#adc = machine.ADC()
+#ow = OneWire(Pin('P11')) ## Use P!
+#temp = DS18X20(ow)
+#photores = adc.channel(pin='G3') ## Light resister delet
+
+#while(True):
+#    print('Light: ' + str(photores()))
+#    time.sleep(1)
+#    print('Temp: ' + str(temp.read_temp_async()))
+#    time.sleep(1)
+#    temp.start_conversion()
+#    time.sleep(1)
+#    print(utime.localtime())
+
+
+wlan = WLAN(mode=WLAN.STA)
+
+nets = wlan.scan()
+for net in nets:
+    if net.ssid == 'iPhone':
+        print('Network found!')
+        wlan.connect(net.ssid, auth=(net.sec, '12345678'), timeout=5000)
+        while not wlan.isconnected():
+            machine.idle() # save power while waiting
+        print('WLAN connection succeeded!')
+        break
 
 while(True):
-    print('Light: ' + str(photores()))
+    data = {"water_tmp": 2.5}
+    response = urequests.post('http://130.226.140.7:1880/mrom/', json=data)
+    print("Wuhu")
+    print(response.text)
+    print("StatusCode: ", response.status_code)
     time.sleep(1)
-    print('Temp: ' + str(temp.read_temp_async()))
-    time.sleep(1)
-    temp.start_conversion()
-    time.sleep(1)
-    print(utime.localtime())
+    response.close()
