@@ -1,7 +1,7 @@
 import usocket
 
 class Response:
-
+ 
     def __init__(self, f):
         self.raw = f
         self.encoding = "utf-8"
